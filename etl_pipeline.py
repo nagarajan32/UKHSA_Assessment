@@ -4,6 +4,7 @@ import pandas as pd
 
 try:
     data = pd.read_csv("healthcare_dataset.csv")
+    data.columns = data.columns.str.strip().str.lower().str.replace(' ', '_')
     print(data.dtypes)
 except Exception as e:
     print(f"Error reading the CSV file: {e}")
@@ -12,18 +13,18 @@ except Exception as e:
 """Transform the data to fit the star schema."""
 try:
         # Remove titles and commas, and correct name case
-        data['Name'] = data['Name'].str.title().str.replace(r'^[Mr\.|Mrs\.|Ms\.|Dr\., ]+', '', regex=True)
+        data['name'] = data['name'].str.title().str.replace(r'^[Mr\.|Mrs\.|Ms\.|Dr\., ]+', '', regex=True)
 
         # Remove trailing commas from Hospital names
-        data['Hospital'] = data['Hospital'].str.rstrip(',')
+        data['hospital'] = data['hospital'].str.rstrip(',')
 
         # Convert dates
-        data['Date of Admission'] = pd.to_datetime(data['Date of Admission'], format='%d-%m-%Y', errors='coerce')
-        data['Discharge Date'] = pd.to_datetime(data['Discharge Date'], format='%d-%m-%Y', errors='coerce')
+        data['date_of_admission'] = pd.to_datetime(data['date_of_admission'], format='%d-%m-%Y', errors='coerce')
+        data['discharge_date'] = pd.to_datetime(data['discharge_date'], format='%d-%m-%Y', errors='coerce')
 
         # Fill missing billing amounts with 0
-        data['Billing Amount'].fillna(0)
-        data['Billing Amount'] = pd.to_numeric(data['Billing Amount'], errors='coerce')
+        data['billing_amount'].fillna(0)
+        data['billing_amount'] = pd.to_numeric(data['billing_amount'], errors='coerce')
         print(data)
         print(data.dtypes)
         
