@@ -17,9 +17,9 @@ try:
         # Remove trailing commas from hospital names
         data['hospital'] = data['hospital'].str.rstrip(',')
         
-        # Convert dates to datetime format
-        data['date_of_admission'] = pd.to_datetime(data['date_of_admission'], format='%d-%m-%Y', errors='coerce')
-        data['discharge_date'] = pd.to_datetime(data['discharge_date'], format='%d-%m-%Y', errors='coerce')
+        # Convert dates to date format
+        data['date_of_admission'] = pd.to_datetime(data['date_of_admission'], format='%d-%m-%Y', errors='coerce').dt.date
+        data['discharge_date'] = pd.to_datetime(data['discharge_date'], format='%d-%m-%Y', errors='coerce').dt.date
         
         # Fill missing billing amounts with 0 and ensure numerical format
         data['billing_amount'].fillna(0)
