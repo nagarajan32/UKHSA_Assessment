@@ -29,7 +29,7 @@ def transform_data(data):
         data.columns = data.columns.str.strip().str.lower().str.replace(' ', '_')
 
         # Remove titles and commas, and correct name case
-        data['name'] = data['name'].str.title().str.replace(r'^[Mr\.|Mrs\.|Ms\.|Dr\., ]+', '', regex=True)
+        data['name'] = data['name'].str.title().str.replace(r'^(Mr\.|Mrs\.|Ms\.|Dr\.)\s+', '', regex=True)
         
         # Remove trailing commas from hospital names
         data['hospital'] = data['hospital'].str.rstrip(',')
